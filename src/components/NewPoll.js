@@ -6,18 +6,19 @@ const NewPoll = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setText1("");
+    setText2("");
+    // Perform submission logic
   };
 
-  const handleChange1 = (e) => {
+  const handleChange = (e) => {
     const text = e.target.value;
-
-    setText1(text);
-  };
-
-  const handleChange2 = (e) => {
-    const text = e.target.value;
-
-    setText2(text);
+    const name = e.target.name;
+    if (name === "text1") {
+      setText1(text);
+    } else {
+      setText2(text);
+    }
   };
 
   return (
@@ -36,15 +37,15 @@ const NewPoll = () => {
         <span>Would You Rather</span>
         <br />
         <div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>
               Option A
               <input
                 style={{ marginLeft: "10px" }}
-                name="a"
+                name="text1"
                 type="text"
                 value={text1}
-                onChange={handleChange1}
+                onChange={handleChange}
               />
             </label>
             <br />
@@ -52,10 +53,10 @@ const NewPoll = () => {
               Option B
               <input
                 style={{ marginLeft: "10px" }}
-                name="b"
+                name="text2"
                 type="text"
                 value={text2}
-                onChange={handleChange1}
+                onChange={handleChange}
               />
             </label>
             <br />
