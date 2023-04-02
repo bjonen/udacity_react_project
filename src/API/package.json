@@ -1,4 +1,7 @@
 {
   "_comment": "https://stackoverflow.com/a/72093719/2146052",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "file-loader": "^6.2.0"
+  }
 }
