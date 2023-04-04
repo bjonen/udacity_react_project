@@ -13,7 +13,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Avatar } from "@mui/material";
 //import Link from "@mui/material/Link";
-import { Link } from "react-router-dom";
+import { Link, useResolvedPath } from "react-router-dom";
+import { users } from "../API/_DATA.js";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -37,15 +38,10 @@ export default function MenuAppBar() {
     { name: "LeaderBoard", path: "leaderboard" },
     { name: "New", path: "new" },
   ];
-  // return (
-  //   <AppBar>
-  //     <Toolbar>
-  //       <MenuItem>dkd</MenuItem>
-  //       <MenuItem>xyz</MenuItem>
-  //     </Toolbar>
-  //   </AppBar>
-  // );
 
+  const authedUser = "sarahedo";
+
+  console.log(users);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -60,7 +56,9 @@ export default function MenuAppBar() {
               <Typography textAlign="center">{page.name}</Typography>
             </MenuItem>
           ))}
-          {/* {auth && (
+          {/* Dummy element to push auth to ride end */}
+          <Typography sx={{ flexGrow: 1 }}></Typography>
+          {auth && (
             <div>
               <IconButton
                 size="large"
@@ -70,8 +68,11 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Avatar alt="Remy Sharp" src="https://i.pravatar.cc/300" />
+                {authedUser && (
+                  <Avatar alt="Remy Sharp" src={users[authedUser].avatarURL} />
+                )}
               </IconButton>
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -87,11 +88,15 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                {Object.keys(users).map((name) => (
+                  <MenuItem>
+                    <Avatar alt="Remy Sharp" src={users[name].avatarURL} />
+                    {name}
+                  </MenuItem>
+                ))}
               </Menu>
             </div>
-          )} */}
+          )}
         </Toolbar>
       </AppBar>
     </Box>

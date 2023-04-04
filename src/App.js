@@ -1,7 +1,4 @@
 import "./App.css";
-// import ColorSchemesExample from "./components/navbar.js";
-import Navbar from "./components/navbar.js";
-//import "bootstrap/dist/css/bootstrap.min.css";
 import NewPoll from "./components/NewPoll.js";
 import PollPage from "./components/PollPage.js";
 import OverviewPage from "./components/OverviewPage";

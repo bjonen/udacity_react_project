@@ -1,3 +1,7 @@
+// State:
+// internal: text1, text2
+// external: authedUser,
+
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
