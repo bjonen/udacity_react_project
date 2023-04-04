@@ -31,16 +31,45 @@ let cardData = [
 function OverviewPage() {
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <h1>New Questions</h1>
-        </Grid>
-        {cardData.map((card) => (
-          <Grid key={card.id} item xs={12} sm={6} md={3}>
-            <GridCard key={card.id} card={card} />
+      <div
+        style={{
+          border: "1px solid gray",
+          marginTop: "10px",
+          marginRight: "10px",
+          marginLeft: "10px",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h1>New Questions</h1>
           </Grid>
-        ))}
-      </Grid>
+          {cardData.map((card) => (
+            <Grid key={card.id} item xs={12} sm={6} md={3}>
+              <GridCard key={card.id} card={card} />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+
+      <div
+        style={{
+          border: "1px solid gray",
+          marginTop: "10px",
+          marginRight: "10px",
+          marginLeft: "10px",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h1>Completed Questions</h1>
+          </Grid>
+          {cardData.map((card) => (
+            <Grid key={card.id} item xs={12} sm={6} md={3}>
+              <GridCard key={card.id} card={card} />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
     </div>
   );
 }

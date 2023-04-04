@@ -4,7 +4,7 @@ import PollPage from "./components/PollPage.js";
 import OverviewPage from "./components/OverviewPage";
 import { Routes, Route } from "react-router-dom";
 import Leaderboard from "./components/LeaderBoard";
-import MenuAppBar from "./components/navbar_mui";
+import MenuAppBar from "./components/Navbar";
 
 function App() {
   return (
