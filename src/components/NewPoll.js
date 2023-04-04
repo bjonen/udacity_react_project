@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 const NewPoll = () => {
   const [text1, setText1] = useState("");
@@ -60,9 +61,14 @@ const NewPoll = () => {
               />
             </label>
             <br />
-            <button className="abc" type="submit">
+            <Button
+              id="submitNewPoll"
+              type="submit"
+              variant="outlined"
+              style={{ height: "10%", width: "10%" }}
+            >
               Submit
-            </button>
+            </Button>
           </form>
         </div>
       </div>

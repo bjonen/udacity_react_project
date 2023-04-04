@@ -7,11 +7,12 @@ import PollPage from "./components/PollPage.js";
 import OverviewPage from "./components/OverviewPage";
 import { Routes, Route } from "react-router-dom";
 import Leaderboard from "./components/LeaderBoard";
+import MenuAppBar from "./components/navbar_mui";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <MenuAppBar />
       <Routes>
         <Route path="/" exact element={<OverviewPage />} />
         <Route path="/pollpage" exact element={<PollPage />} />
