@@ -1,6 +1,8 @@
 // State:
 // internal: text1, text2
-// external: authedUser,
+// external:
+// * authedUser (To save the question to the user's list of questions),
+// * questions (to check whether the question already exists and to save the new questions)
 
 import { useState } from "react";
 import Button from "@mui/material/Button";

@@ -1,5 +1,11 @@
 // https://www.material-react-table.com/docs/examples/advanced
 
+// Internal state: data
+// External state:
+// * users
+// * questions. Need utility function to convert questions to "answered" and "created" by user
+// * authedUser is not needed
+
 import React, { useMemo } from "react";
 import MaterialReactTable from "material-react-table";
 import {

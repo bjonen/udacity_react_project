@@ -1,11 +1,8 @@
-import Box from "@mui/material/Box";
+// Data is passed via OverviewPage. No need for accessing external state.
+
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
 import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";

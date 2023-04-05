@@ -1,3 +1,10 @@
+// Polls can only be answered once.
+// Need to know the authedUser
+// Question id will be passed via the URL
+// If question exists, display the answers so far for current user.
+// If still unanswered the user can choose. The result needs to be transmitted to
+// the global state.
+
 import Logo from "../avatars/02-man.svg";
 import Button from "@mui/material/Button";
 import { useState } from "react";

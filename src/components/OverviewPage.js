@@ -1,3 +1,6 @@
+// Convert complete external state into cards. Write utility function for this.
+// Requires knowledge about autghedUser, users, questions
+
 import Grid from "@mui/material/Grid";
 import GridCard from "./GridCard";
 
