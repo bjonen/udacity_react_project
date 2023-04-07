@@ -7,21 +7,33 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Avatar } from "@mui/material";
-//import Link from "@mui/material/Link";
-import { Link, useResolvedPath } from "react-router-dom";
-import { users } from "../API/_DATA.js";
+import { Link } from "react-router-dom";
+import { useGetUsersQuery } from "../apiSlice.js";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery();
+  let content;
+  if (isLoading) {
+    content = "posts";
+    return <div>Loading...</div>;
+  } else if (isSuccess) {
+    //content = "success";
+    content = console.log("success. posts is", users);
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
+  }
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -44,19 +56,21 @@ export default function MenuAppBar() {
 
   const authedUser = "sarahedo";
 
-  console.log(users);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           {pages.map((page) => (
             <MenuItem
+              key={page.name}
               component={Link}
               // the 'to' prop (and any other props not recognized by MenuItem itself)
               // will be passed down to the Link component
               to={page.path}
             >
-              <Typography textAlign="center">{page.name}</Typography>
+              <Typography key={page.name} textAlign="center">
+                {page.name}
+              </Typography>
             </MenuItem>
           ))}
           {/* Dummy element to push auth to ride end */}
@@ -92,7 +106,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 {Object.keys(users).map((name) => (
-                  <MenuItem>
+                  <MenuItem key={name}>
                     <Avatar alt="Remy Sharp" src={users[name].avatarURL} />
                     {name}
                   </MenuItem>
