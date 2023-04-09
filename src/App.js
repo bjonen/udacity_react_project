@@ -12,7 +12,7 @@ function App() {
       <MenuAppBar />
       <Routes>
         <Route path="/" exact element={<OverviewPage />} />
-        <Route path="/pollpage" exact element={<PollPage />} />
+        <Route exact path="/pollpage/:questionId" element={<PollPage />} />
         <Route path="/leaderboard" exact element={<Leaderboard />} />
         <Route path="/new" element={<NewPoll />} />
       </Routes>{" "}

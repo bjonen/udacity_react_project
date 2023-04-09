@@ -8,18 +8,48 @@
 import Logo from "../avatars/02-man.svg";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+// https://stackoverflow.com/a/70610481/2146052
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
+import { useSaveQuestionAnswerMutation } from "../apiSlice.js";
+
+const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
+  return {
+    data,
+    isLoading,
+  };
+};
 
 const PollPage = () => {
-  const name = "sarahedo";
-  const [activated, setActivated] = useState(null);
+  const { questionId } = useParams();
+  const authedUser = useSelector((state) => state.authedUser.id);
+  const { data: questions, isLoading: isLoadingQuestions } = processGetApis(
+    useGetQuestionsQuery()
+  );
+  const { data: users, isLoading: isLoadingUsers } = processGetApis(
+    useGetUsersQuery()
+  );
+  const [saveQuestionAnswer, { isLoading: isLoadingSave }] =
+    useSaveQuestionAnswerMutation();
+
+  const answer = users && users[authedUser].answers[questionId];
+  const activated = answer && (answer === "optionOne" ? 1 : 2);
+
+  let question = null;
+  if (questions) {
+    question = questions[questionId];
+  } else {
+    return <div>loading pollpage</div>;
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (e.target.id === "button1") {
-      setActivated(1);
-    } else {
-      setActivated(2);
-    }
+    saveQuestionAnswer({
+      authedUser: authedUser,
+      qid: questionId,
+      answer: e.target.id === "button1" ? "optionOne" : "optionTwo",
+    });
   };
 
   return (
@@ -31,8 +61,13 @@ const PollPage = () => {
         alignItems: "center",
       }}
     >
-      <h1>Poll by {name}</h1>
-      <img src={Logo} alt="Avatar" width={125} height={125} />
+      <h1>Poll by {question.author}</h1>
+      <img
+        src={users && users[question.author].avatarURL}
+        alt="Avatar"
+        width={125}
+        height={125}
+      />
       <h3>Would You Rather</h3>
       <div>
         <span
@@ -46,7 +81,7 @@ const PollPage = () => {
             // variant={"outlined"}
             onClick={handleClick}
           >
-            Become a policeman
+            {question.optionOne.text}
           </Button>
         </span>
         <span>
@@ -55,7 +90,7 @@ const PollPage = () => {
             onClick={handleClick}
             variant={activated === 2 ? "contained" : "outlined"}
           >
-            Become a fireworker
+            {question.optionTwo.text}
           </Button>
         </span>
       </div>
