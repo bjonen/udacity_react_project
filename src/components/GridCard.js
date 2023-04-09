@@ -10,13 +10,15 @@ import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 
 const GridCard = ({ card }) => {
+  // XXX Could also pass only question id and let GridCard fetch the
+  // the required card information from the store.
   const navigate = useNavigate();
 
   return (
     <Card elevation={1}>
       <CardHeader
         action={
-          <IconButton onClick={() => navigate("/pollpage")}>
+          <IconButton onClick={() => navigate(`/pollpage/${card.id}`)}>
             <NorthEastSharpIcon />
           </IconButton>
         }

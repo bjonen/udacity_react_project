@@ -56,7 +56,6 @@ export default function MenuAppBar() {
 
   const pages = [
     { name: "Home", path: "/" },
-    { name: "PollPage", path: "pollpage" },
     { name: "LeaderBoard", path: "leaderboard" },
     { name: "New", path: "new" },
   ];
