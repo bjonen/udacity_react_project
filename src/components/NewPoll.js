@@ -6,16 +6,25 @@
 
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { useSaveQuestionMutation } from "../apiSlice";
+import { useSelector } from "react-redux";
 
 const NewPoll = () => {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
+  const [saveQuestion, { isLoading }] = useSaveQuestionMutation();
+  const authedUser = useSelector((state) => state.authedUser.id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setText1("");
     setText2("");
     // Perform submission logic
+    const result = saveQuestion({
+      optionOneText: text1,
+      optionTwoText: text2,
+      author: authedUser,
+    });
   };
 
   const handleChange = (e) => {
@@ -29,55 +38,61 @@ const NewPoll = () => {
   };
 
   return (
-    <div
-      style={{
-        // https://stackoverflow.com/a/33049392
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        //alignSelf: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <h1>Create New Poll</h1>
-        <span>Would You Rather</span>
-        <br />
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Option A
-              <input
-                style={{ marginLeft: "10px" }}
-                name="text1"
-                type="text"
-                value={text1}
-                onChange={handleChange}
-              />
-            </label>
+    <div>
+      {isLoading ? (
+        <div>We are loading</div>
+      ) : (
+        <div
+          style={{
+            // https://stackoverflow.com/a/33049392
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            //alignSelf: "center",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <h1>Create New Poll</h1>
+            <span>Would You Rather</span>
             <br />
-            <label>
-              Option B
-              <input
-                style={{ marginLeft: "10px" }}
-                name="text2"
-                type="text"
-                value={text2}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <Button
-              id="submitNewPoll"
-              type="submit"
-              variant="outlined"
-              style={{ height: "10%", width: "10%" }}
-            >
-              Submit
-            </Button>
-          </form>
+            <div>
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Option A
+                  <input
+                    style={{ marginLeft: "10px" }}
+                    name="text1"
+                    type="text"
+                    value={text1}
+                    onChange={handleChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Option B
+                  <input
+                    style={{ marginLeft: "10px" }}
+                    name="text2"
+                    type="text"
+                    value={text2}
+                    onChange={handleChange}
+                  />
+                </label>
+                <br />
+                <Button
+                  id="submitNewPoll"
+                  type="submit"
+                  variant="outlined"
+                  style={{ height: "10%", width: "10%" }}
+                >
+                  Submit
+                </Button>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

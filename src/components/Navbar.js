@@ -19,7 +19,6 @@ export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const authedUser = useSelector((state) => state.authedUser.id);
-  console.log("authedUser", authedUser);
   const dispatch = useDispatch();
 
   const {
@@ -33,11 +32,12 @@ export default function MenuAppBar() {
   if (isLoading) {
     content = "posts";
     return <div>Loading...</div>;
-  } else if (isSuccess) {
-    content = console.log("success. posts is", users);
-  } else if (isError) {
-    content = <div>{error.toString()}</div>;
   }
+  // } else if (isSuccess) {
+  //   content = console.log("success. posts is", users);
+  // } else if (isError) {
+  //   content = <div>{error.toString()}</div>;
+  // }
 
   const handleMenu = (event) => {
     console.log("handleMenu");

@@ -1,6 +1,6 @@
 // extracted from https://github.com/udacity/nd0191-c2-React-Redux-project-starter
 
-export const users = {
+let users = {
   sarahedo: {
     id: "sarahedo",
     password: "password123",
@@ -180,6 +180,18 @@ export function _saveQuestion(question) {
       questions = {
         ...questions,
         [formattedQuestion.id]: formattedQuestion,
+      };
+
+      // BJ: Make sure that the backend also keeps users correctly updated
+      users = {
+        ...users,
+        [question.author]: {
+          ...users[question.author],
+          questions: [
+            ...users[question.author].questions,
+            formattedQuestion.id,
+          ],
+        },
       };
 
       resolve(formattedQuestion);
