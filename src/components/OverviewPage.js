@@ -4,13 +4,21 @@
 import Grid from "@mui/material/Grid";
 import GridCard from "./GridCard";
 import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
+import { useSelector } from "react-redux";
 
-const getCardData = (questions, users) => {
+const getCardData = (questions, users, authedUser) => {
   if (!questions || !users) {
-    return [];
+    return {
+      cardData: [],
+      cardDataCompleted: [],
+      cardDataNew: [],
+    };
   }
   let cardData = [];
+  let cardDataNew = [];
+  let cardDataCompleted = [];
   let myObject = {};
+  let answers = users[authedUser].answers;
   Object.keys(questions).forEach((key) => {
     console.log("question", key);
     const quest = questions[key];
@@ -21,28 +29,30 @@ const getCardData = (questions, users) => {
       avatar: author.avatarURL,
       timestmap: quest.timestamp,
     };
+    if (answers.hasOwnProperty(key)) {
+      cardDataCompleted.push(myObject);
+    } else {
+      cardDataNew.push(myObject);
+    }
     cardData.push(myObject);
   });
-  console.log("cardData", cardData);
-  return cardData;
+  return {
+    cardData: cardData,
+    cardDataCompleted: cardDataCompleted,
+    cardDataNew: cardDataNew,
+  };
+};
+
+const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
+  // XXX Add error handling
+  return data;
 };
 
 function OverviewPage() {
-  const {
-    data: users,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetUsersQuery();
-  const {
-    data: questions,
-    isLoadingQuestions,
-    isSuccessQuestions,
-    isErrorQuestions,
-    errorQuestions,
-  } = useGetQuestionsQuery();
-  const cardData = getCardData(questions, users);
+  const authedUser = useSelector((state) => state.authedUser.id);
+  const users = processGetApis(useGetUsersQuery());
+  const questions = processGetApis(useGetQuestionsQuery());
+  const fullCardData = getCardData(questions, users, authedUser);
   return (
     <div>
       <div
@@ -57,7 +67,7 @@ function OverviewPage() {
           <Grid item xs={12}>
             <h1>New Questions</h1>
           </Grid>
-          {cardData.map((card) => (
+          {fullCardData.cardDataNew.map((card) => (
             <Grid key={card.id} item xs={12} sm={6} md={3}>
               <GridCard key={card.id} card={card} />
             </Grid>
@@ -77,7 +87,7 @@ function OverviewPage() {
           <Grid item xs={12}>
             <h1>Completed Questions</h1>
           </Grid>
-          {cardData.map((card) => (
+          {fullCardData["cardDataCompleted"].map((card) => (
             <Grid key={card.id} item xs={12} sm={6} md={3}>
               <GridCard key={card.id} card={card} />
             </Grid>

@@ -45,10 +45,13 @@ export default function MenuAppBar() {
   };
 
   const handleClose = (event) => {
+    const newUser = event.target.dataset["key"];
     console.log("handleClose", event);
-    console.log("newuser", event.target.dataset["key"]);
+    console.log("newuser", newUser);
     setAnchorEl(null);
-    dispatch(login(event.target.dataset["key"]));
+    if (newUser) {
+      dispatch(login(event.target.dataset["key"]));
+    }
   };
 
   const pages = [
