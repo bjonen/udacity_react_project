@@ -20,7 +20,6 @@ const getCardData = (questions, users, authedUser) => {
   let myObject = {};
   let answers = users[authedUser].answers;
   Object.keys(questions).forEach((key) => {
-    console.log("question", key);
     const quest = questions[key];
     const author = users[quest.author];
     myObject = {

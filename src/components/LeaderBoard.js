@@ -8,102 +8,38 @@
 
 import React, { useMemo } from "react";
 import MaterialReactTable from "material-react-table";
-import {
-  Box,
-  Button,
-  ListItemIcon,
-  MenuItem,
-  Typography,
-  TextField,
-} from "@mui/material";
-import Switch from "@mui/material/Switch";
-import { useEffect } from "react";
-import { useWhatChanged } from "@simbathesailor/use-what-changed";
+import { useGetUsersQuery } from "../apiSlice";
 
-const data1 = [
-  {
-    id: "myid1",
-    name: "Leanne Graham",
-    avatar: "https://i.pravatar.cc/300",
-    answered: 2,
-    created: 1,
-  },
-  {
-    id: "myid2",
-    name: "myname2",
-    avatar: "https://i.pravatar.cc/301",
-    answered: 2,
-    created: 4,
-  },
-  {
-    id: "myid3",
-    name: "myname3",
-    avatar: "https://i.pravatar.cc/302",
-    answered: 5,
-    created: 3,
-  },
-];
+import { Box } from "@mui/material";
 
-const data2 = [
-  {
-    id: "myid1",
-    name: "Leanne Graham_b",
-    avatar: "https://i.pravatar.cc/300",
-    answered: 2,
-    created: 1,
-  },
-  {
-    id: "myid2",
-    name: "myname2_b",
-    avatar: "https://i.pravatar.cc/301",
-    answered: 2,
-    created: 4,
-  },
-  {
-    id: "myid3",
-    name: "myname3_b",
-    avatar: "https://i.pravatar.cc/302",
-    answered: 5,
-    created: 3,
-  },
-];
+const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
+  return {
+    users: data,
+    isLoading,
+  };
+};
 
-export function _getData(switchData) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(!switchData ? data1 : data2), 1000);
+const generateData = (users) => {
+  let data = [];
+  if (users === undefined) {
+    return data;
+  }
+  Object.keys(users).forEach((id) => {
+    const user = users[id];
+    data.push({
+      id: user.id,
+      name: user.name,
+      avatar: user.avatarURL,
+      answered: Object.keys(user.answers).length,
+      created: user.questions.length,
+    });
   });
-}
+  return data;
+};
 
 const Leaderboard = () => {
-  //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-  const [data, setData] = React.useState(data1);
-  const [switchData, setSwitchData] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  //if you want to avoid useEffect, look at the React Query example instead
-  useEffect(() => {
-    setIsLoading(true);
-    _getData(switchData).then((data) => {
-      setData(data);
-      setIsLoading(false);
-    });
-  }, [switchData]);
-
-  useEffect(() => {
-    console.log("COMPONENT MOUNTED");
-    return () => {
-      console.log("COMPONENT UNMOUNTED");
-    };
-  }, []);
-
-  let deps = [data, switchData, isLoading];
-  useWhatChanged(deps, "a, b, c");
-  useEffect(() => {
-    console.log("COMPONENT UPDATES");
-    return () => {
-      console.log("COMPONENT UPDATE COMPLETE");
-    };
-  }, deps);
+  const { users, isLoading } = processGetApis(useGetUsersQuery());
+  const newData = generateData(users);
 
   const columns = useMemo(
     () => [
@@ -152,17 +88,12 @@ const Leaderboard = () => {
 
   return (
     <div>
-      <Switch
-        onChange={(e, c) => {
-          return setSwitchData(c);
-        }}
-      />
       <MaterialReactTable
         columns={columns}
-        data={data}
+        data={newData}
         enableColumnOrdering
         enableGlobalFilter={false} //turn off a feature
-        state={{ switchData, isLoading }}
+        state={{ isLoading }}
       />
     </div>
   );

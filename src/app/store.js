@@ -13,7 +13,6 @@ const reducer = (state = {}, action) => {
 // We use configureStore instead of createStore which is deprecated.
 // const store = createStore(reducer, middleware);
 // https://redux-toolkit.js.org/api/configureStore
-console.log("reducerpath is", authedUserSlice);
 export default configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
