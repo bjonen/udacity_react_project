@@ -12,10 +12,15 @@ import Menu from "@mui/material/Menu";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useGetUsersQuery } from "../apiSlice.js";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "./authedUserSlice.js";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const authedUser = useSelector((state) => state.authedUser.id);
+  console.log("authedUser", authedUser);
+  const dispatch = useDispatch();
 
   const {
     data: users,
@@ -29,22 +34,21 @@ export default function MenuAppBar() {
     content = "posts";
     return <div>Loading...</div>;
   } else if (isSuccess) {
-    //content = "success";
     content = console.log("success. posts is", users);
   } else if (isError) {
     content = <div>{error.toString()}</div>;
   }
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
   const handleMenu = (event) => {
+    console.log("handleMenu");
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    console.log("handleClose", event);
+    console.log("newuser", event.target.dataset["key"]);
     setAnchorEl(null);
+    dispatch(login(event.target.dataset["key"]));
   };
 
   const pages = [
@@ -53,8 +57,6 @@ export default function MenuAppBar() {
     { name: "LeaderBoard", path: "leaderboard" },
     { name: "New", path: "new" },
   ];
-
-  const authedUser = "sarahedo";
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -106,8 +108,17 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 {Object.keys(users).map((name) => (
-                  <MenuItem key={name}>
-                    <Avatar alt="Remy Sharp" src={users[name].avatarURL} />
+                  <MenuItem
+                    key={name}
+                    mykey={name}
+                    data-key={name}
+                    onClick={handleClose}
+                  >
+                    <Avatar
+                      alt="Remy Sharp"
+                      mykey="blub"
+                      src={users[name].avatarURL}
+                    />
                     {name}
                   </MenuItem>
                 ))}

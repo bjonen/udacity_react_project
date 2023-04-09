@@ -3,35 +3,46 @@
 
 import Grid from "@mui/material/Grid";
 import GridCard from "./GridCard";
+import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
 
-let cardData = [
-  {
-    id: 1,
-    author: "sarahedo",
-    avatar: "https://i.pravatar.cc/300",
-    timestamp: 1467166872634,
-  },
-  {
-    id: 2,
-    author: "mtsamis",
-    avatar: "https://i.pravatar.cc/301",
-    timestamp: 1468479767190,
-  },
-  {
-    id: 3,
-    author: "mtsamis",
-    avatar: "https://i.pravatar.cc/301",
-    timestamp: 1468479767190,
-  },
-  {
-    id: 4,
-    author: "mtsamis",
-    avatar: "https://i.pravatar.cc/301",
-    timestamp: 1468479767190,
-  },
-];
+const getCardData = (questions, users) => {
+  if (!questions || !users) {
+    return [];
+  }
+  let cardData = [];
+  let myObject = {};
+  Object.keys(questions).forEach((key) => {
+    console.log("question", key);
+    const quest = questions[key];
+    const author = users[quest.author];
+    myObject = {
+      id: quest.id,
+      author: quest.author,
+      avatar: author.avatarURL,
+      timestmap: quest.timestamp,
+    };
+    cardData.push(myObject);
+  });
+  console.log("cardData", cardData);
+  return cardData;
+};
 
 function OverviewPage() {
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery();
+  const {
+    data: questions,
+    isLoadingQuestions,
+    isSuccessQuestions,
+    isErrorQuestions,
+    errorQuestions,
+  } = useGetQuestionsQuery();
+  const cardData = getCardData(questions, users);
   return (
     <div>
       <div
