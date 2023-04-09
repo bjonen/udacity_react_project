@@ -2,6 +2,7 @@
   "_comment": "https://stackoverflow.com/a/72093719/2146052",
   "type": "module",
   "dependencies": {
+    "express": "^4.18.2",
     "file-loader": "^6.2.0"
   }
 }
