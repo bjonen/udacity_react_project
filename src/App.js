@@ -14,7 +14,7 @@ function App() {
         <Route path="/" exact element={<OverviewPage />} />
         <Route exact path="/questions/:questionId" element={<PollPage />} />
         <Route path="/leaderboard" exact element={<Leaderboard />} />
-        <Route path="/new" element={<NewPoll />} />
+        <Route path="/add" element={<NewPoll />} />
       </Routes>{" "}
     </div>
   );
