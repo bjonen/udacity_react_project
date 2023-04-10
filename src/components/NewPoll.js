@@ -45,7 +45,7 @@ const NewPoll = () => {
   return (
     <div>
       {isLoading ? (
-        <div>We are loading</div>
+        <div data-testid="api-loading">Waiting for API request to complete</div>
       ) : (
         <div
           style={{
@@ -67,6 +67,7 @@ const NewPoll = () => {
                   Option A
                   <input
                     style={{ marginLeft: "10px" }}
+                    data-testid="text1"
                     name="text1"
                     type="text"
                     value={text1}
@@ -78,6 +79,7 @@ const NewPoll = () => {
                   Option B
                   <input
                     style={{ marginLeft: "10px" }}
+                    data-testid="text2"
                     name="text2"
                     type="text"
                     value={text2}
@@ -87,6 +89,7 @@ const NewPoll = () => {
                 <br />
                 <Button
                   id="submitNewPoll"
+                  data-testid="submit-button"
                   type="submit"
                   variant="outlined"
                   style={{ height: "10%", width: "10%" }}

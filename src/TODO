@@ -1,9 +1,4 @@
-
-* Build out jsx for components
-* Switch Users based on the navbar
-** Build user authentication
-** Leaderboard -> Using table component?
-** Poll page (user, possibility to select an option if not done yet)
-
-* Build out store concept
-* Build out concrete logic
+* Write tests
+* Possible to deploy to Heroku?
+* Code structure and remove warnings and logs
+** Organize using features
