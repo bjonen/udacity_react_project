@@ -9,6 +9,7 @@
 import React, { useMemo } from "react";
 import MaterialReactTable from "material-react-table";
 import { useGetUsersQuery } from "../apiSlice";
+import { useSelector } from "react-redux";
 
 import { Box } from "@mui/material";
 
@@ -45,6 +46,7 @@ const generateData = (users) => {
 const Leaderboard = () => {
   const { users, isLoading } = processGetApis(useGetUsersQuery());
   const newData = generateData(users);
+  const authedUser = useSelector((state) => state.authedUser.id);
 
   const columns = useMemo(
     () => [
@@ -90,7 +92,13 @@ const Leaderboard = () => {
     ],
     []
   );
-
+  if (!authedUser || authedUser === "anonymous") {
+    return (
+      <div style={{ padding: "10px" }}>
+        Please log in using dropdown on the top right
+      </div>
+    );
+  }
   return (
     <div>
       <MaterialReactTable

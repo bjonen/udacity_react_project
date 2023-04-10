@@ -88,6 +88,9 @@ export default function MenuAppBar() {
           <Typography sx={{ flexGrow: 1 }}></Typography>
           {
             <div>
+              {authedUser !== "anonymous"
+                ? fullUsers[authedUser].name
+                : "Logged out"}
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -103,7 +106,6 @@ export default function MenuAppBar() {
                   />
                 }
               </IconButton>
-
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}

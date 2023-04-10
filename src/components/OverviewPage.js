@@ -21,22 +21,38 @@ const getCardData = (questions, users, authedUser) => {
   let cardDataCompleted = [];
   let myObject = {};
   let answers = users[authedUser].answers;
-  Object.keys(questions).forEach((key) => {
-    const quest = questions[key];
-    const author = users[quest.author];
-    myObject = {
-      id: quest.id,
-      author: quest.author,
-      avatar: author.avatarURL,
-      timestmap: quest.timestamp,
-    };
-    if (answers.hasOwnProperty(key)) {
-      cardDataCompleted.push(myObject);
-    } else {
-      cardDataNew.push(myObject);
-    }
-    cardData.push(myObject);
-  });
+  Object.keys(questions)
+    .sort((a, b) => (questions[a].timestamp > questions[b].timestamp ? -1 : 1))
+    .forEach((key) => {
+      const quest = questions[key];
+      const author = users[quest.author];
+      const date = new Date(quest.timestamp);
+      myObject = {
+        id: quest.id,
+        author: users[quest.author].name,
+        avatar: author.avatarURL,
+        textOptionOne: quest.optionOne.text,
+        textOptionTwo: quest.optionTwo.text,
+        timestamp:
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear() +
+          " " +
+          date.getHours() +
+          ":" +
+          date.getMinutes() +
+          ":" +
+          date.getSeconds(),
+      };
+      if (answers.hasOwnProperty(key)) {
+        cardDataCompleted.push(myObject);
+      } else {
+        cardDataNew.push(myObject);
+      }
+      cardData.push(myObject);
+    });
   return {
     cardData: cardData,
     cardDataCompleted: cardDataCompleted,

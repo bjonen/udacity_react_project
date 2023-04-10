@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 const GridCard = ({ card }) => {
   // XXX Could also pass only question id and let GridCard fetch the
@@ -23,11 +24,24 @@ const GridCard = ({ card }) => {
           </IconButton>
         }
         title={card.author}
-        subheader="20230303"
+        subheader={card.timestamp}
         avatar={<Avatar src={card.avatar} />}
       />
       <CardContent variant="body2" color="textSecondary">
-        <Typography>some details</Typography>
+        <Typography>
+          <Box sx={{ fontSize: 10, m: 1 }}>
+            1){" "}
+            {card.textOptionOne.length <= 40
+              ? card.textOptionOne.slice(0, 40)
+              : card.textOptionOne.slice(0, 40) + "..."}
+          </Box>
+          <Box sx={{ fontSize: 10, m: 1 }}>
+            2){" "}
+            {card.textOptionTwo.length <= 40
+              ? card.textOptionTwo.slice(0, 40)
+              : card.textOptionTwo.slice(0, 40) + "..."}
+          </Box>
+        </Typography>
       </CardContent>
     </Card>
   );
