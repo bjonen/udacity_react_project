@@ -33,6 +33,20 @@ const PollPage = () => {
   const [saveQuestionAnswer, { isLoading: isLoadingSave }] =
     useSaveQuestionAnswerMutation();
 
+  if (!questions[questionId]) {
+    let msg = "404 Question does not exist";
+    if (authedUser === "anonymous") {
+      msg += ". Please log in using dropdown on the top right";
+    }
+    return <div style={{ padding: "10px" }}> {msg} </div>;
+  }
+  if (authedUser === "anonymous") {
+    return (
+      <div style={{ padding: "10px" }}>
+        Please log in using dropdown on the top right
+      </div>
+    );
+  }
   const answer = users && users[authedUser].answers[questionId];
   const activated = answer && (answer === "optionOne" ? 1 : 2);
 

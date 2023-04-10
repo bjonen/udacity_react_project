@@ -19,7 +19,7 @@ const GridCard = ({ card }) => {
     <Card elevation={1}>
       <CardHeader
         action={
-          <IconButton onClick={() => navigate(`/pollpage/${card.id}`)}>
+          <IconButton onClick={() => navigate(`/questions/${card.id}`)}>
             <NorthEastSharpIcon />
           </IconButton>
         }
