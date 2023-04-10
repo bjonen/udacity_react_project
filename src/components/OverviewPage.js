@@ -88,7 +88,7 @@ function OverviewPage() {
           marginLeft: "10px",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} style={{ padding: "10px" }}>
           <Grid item xs={12}>
             <h1>New Questions</h1>
           </Grid>
@@ -108,7 +108,7 @@ function OverviewPage() {
           marginLeft: "10px",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} style={{ padding: "10px" }}>
           <Grid item xs={12}>
             <h1>Completed Questions</h1>
           </Grid>
