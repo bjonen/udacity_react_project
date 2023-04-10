@@ -13,9 +13,11 @@ describe("NewPoll", () => {
   it("will render correctly", async () => {
     store.dispatch(login("sarahedo"));
     var component = render(
-      <Provider store={store}>
-        <NewPoll />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <NewPoll />
+        </Provider>
+      </BrowserRouter>
     );
     expect(component).toMatchSnapshot();
   });
@@ -23,9 +25,11 @@ describe("NewPoll", () => {
   it("will submit correctly", async () => {
     store.dispatch(login("sarahedo"));
     var component = render(
-      <Provider store={store}>
-        <NewPoll />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <NewPoll />
+        </Provider>
+      </BrowserRouter>
     );
     act(() => {
       var input = component.getByTestId("text1");
@@ -36,6 +40,8 @@ describe("NewPoll", () => {
       submitButton.click();
     });
     //await new Promise((r) => setTimeout(r, 100));
+    // While we navigate away from the page, the component itself will still show
+    // the loading div.
     expect(component.getByTestId("api-loading")).toBeInTheDocument();
     preview.debug();
   });

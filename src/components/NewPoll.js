@@ -8,12 +8,14 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useSaveQuestionMutation } from "../apiSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const NewPoll = () => {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [saveQuestion, { isLoading }] = useSaveQuestionMutation();
   const authedUser = useSelector((state) => state.authedUser.id);
+  const navigate = useNavigate();
   if (authedUser === "anonymous") {
     return (
       <div style={{ padding: "10px" }}>Please log in to create a new poll</div>
@@ -30,6 +32,7 @@ const NewPoll = () => {
       optionTwoText: text2,
       author: authedUser,
     });
+    navigate("/");
   };
 
   const handleChange = (e) => {
