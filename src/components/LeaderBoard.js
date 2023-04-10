@@ -36,6 +36,9 @@ const generateData = (users) => {
       });
     }
   });
+  data.sort((a, b) =>
+    a.answered + a.created > b.answered + b.created ? -1 : 1
+  );
   return data;
 };
 
