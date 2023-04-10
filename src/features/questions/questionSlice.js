@@ -1,11 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { current } from "@reduxjs/toolkit";
+// import { current } from "@reduxjs/toolkit";
 import {
   _getQuestions,
   _getUsers,
   _saveQuestion,
   _saveQuestionAnswer,
-} from "./api/_DATA.js";
+} from "../../api/_DATA.js";
 // Define our single API slice object
 export const apiSlice = createApi({
   tagTypes: ["Questions", "Users"],

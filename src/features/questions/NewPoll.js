@@ -6,7 +6,7 @@
 
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import { useSaveQuestionMutation } from "../apiSlice";
+import { useSaveQuestionMutation } from "./questionSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const NewPoll = () => {
     setText1("");
     setText2("");
     // Perform submission logic
-    const result = saveQuestion({
+    saveQuestion({
       optionOneText: text1,
       optionTwoText: text2,
       author: authedUser,

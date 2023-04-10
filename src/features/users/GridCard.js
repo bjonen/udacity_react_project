@@ -28,7 +28,7 @@ const GridCard = ({ card }) => {
         avatar={<Avatar src={card.avatar} />}
       />
       <CardContent variant="body2" color="textSecondary">
-        <Typography>
+        <Typography component={"span"}>
           <Box sx={{ fontSize: 10, m: 1 }}>
             1){" "}
             {card.textOptionOne.length <= 40

@@ -67,7 +67,7 @@ Object {
           color="textSecondary"
           variant="body2"
         >
-          <p
+          <span
             class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
           >
             <div
@@ -84,7 +84,7 @@ Object {
                
               The second option
             </div>
-          </p>
+          </span>
         </div>
       </div>
     </div>
@@ -152,7 +152,7 @@ Object {
         color="textSecondary"
         variant="body2"
       >
-        <p
+        <span
           class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
         >
           <div
@@ -169,7 +169,7 @@ Object {
              
             The second option
           </div>
-        </p>
+        </span>
       </div>
     </div>
   </div>,

@@ -1,18 +1,9 @@
-// Polls can only be answered once.
-// Need to know the authedUser
-// Question id will be passed via the URL
-// If question exists, display the answers so far for current user.
-// If still unanswered the user can choose. The result needs to be transmitted to
-// the global state.
-
-import Logo from "../avatars/02-man.svg";
 import Button from "@mui/material/Button";
-import { useState } from "react";
 // https://stackoverflow.com/a/70610481/2146052
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
-import { useSaveQuestionAnswerMutation } from "../apiSlice.js";
+import { useGetQuestionsQuery, useGetUsersQuery } from "./questionSlice";
+import { useSaveQuestionAnswerMutation } from "./questionSlice.js";
 
 const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
   return {
@@ -24,14 +15,9 @@ const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
 const PollPage = () => {
   const { questionId } = useParams();
   const authedUser = useSelector((state) => state.authedUser.id);
-  const { data: questions, isLoading: isLoadingQuestions } = processGetApis(
-    useGetQuestionsQuery()
-  );
-  const { data: users, isLoading: isLoadingUsers } = processGetApis(
-    useGetUsersQuery()
-  );
-  const [saveQuestionAnswer, { isLoading: isLoadingSave }] =
-    useSaveQuestionAnswerMutation();
+  const { data: questions } = processGetApis(useGetQuestionsQuery());
+  const { data: users } = processGetApis(useGetUsersQuery());
+  const [saveQuestionAnswer] = useSaveQuestionAnswerMutation();
 
   let question = null;
   if (questions) {

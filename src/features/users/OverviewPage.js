@@ -3,8 +3,12 @@
 
 import Grid from "@mui/material/Grid";
 import GridCard from "./GridCard";
-import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
+import {
+  useGetQuestionsQuery,
+  useGetUsersQuery,
+} from "../questions/questionSlice";
 import { useSelector } from "react-redux";
+import { processGetApis } from "../../app/util.js";
 
 const getCardData = (questions, users, authedUser) => {
   if (!questions || !users || !authedUser || authedUser === "anonymous") {
@@ -14,8 +18,6 @@ const getCardData = (questions, users, authedUser) => {
       cardDataNew: [],
     };
   }
-  console.log("getCardData: authedUser", authedUser);
-  console.log("getCardData: authedUser", users[authedUser]);
   let cardData = [];
   let cardDataNew = [];
   let cardDataCompleted = [];
@@ -60,15 +62,10 @@ const getCardData = (questions, users, authedUser) => {
   };
 };
 
-const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
-  // XXX Add error handling
-  return data;
-};
-
 function OverviewPage() {
   const authedUser = useSelector((state) => state.authedUser.id);
-  const users = processGetApis(useGetUsersQuery());
-  const questions = processGetApis(useGetQuestionsQuery());
+  const { data: users } = processGetApis(useGetUsersQuery());
+  const { data: questions } = processGetApis(useGetQuestionsQuery());
   if (!authedUser || authedUser === "anonymous") {
     return (
       <div style={{ padding: "10px" }}>
@@ -76,7 +73,6 @@ function OverviewPage() {
       </div>
     );
   }
-  console.log("authedUser", authedUser);
   const fullCardData = getCardData(questions, users, authedUser);
   return (
     <div>

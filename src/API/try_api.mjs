@@ -1,4 +1,5 @@
 // Run with node try_api.mjs
+// This module allows to test the API calls in the REPL.
 
 import {
   _getUsers,

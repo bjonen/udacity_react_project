@@ -9,7 +9,6 @@ describe("_saveQuestion", () => {
       author: "sarahedo",
     };
     var formattedQuestion = await _saveQuestion(question);
-    console.log(formattedQuestion);
     expect(formattedQuestion.author).toEqual(question.author);
     expect(formattedQuestion.optionOne.text).toEqual(question.optionOneText);
     expect(formattedQuestion.optionTwo.text).toEqual(question.optionTwoText);
@@ -34,7 +33,6 @@ describe("_saveQuestionAnswer", () => {
       answer: "optionOne",
     };
     var res = await _saveQuestionAnswer(answer);
-    console.log(res);
     expect(res).toEqual(true);
   });
 

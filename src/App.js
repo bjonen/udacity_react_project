@@ -1,10 +1,10 @@
 import "./App.css";
-import NewPoll from "./components/NewPoll.js";
-import PollPage from "./components/PollPage.js";
-import OverviewPage from "./components/OverviewPage";
+import NewPoll from "./features/questions/NewPoll.js";
+import PollPage from "./features/questions/PollPage.js";
+import OverviewPage from "./features/users/OverviewPage";
 import { Routes, Route } from "react-router-dom";
-import Leaderboard from "./components/LeaderBoard";
-import MenuAppBar from "./components/Navbar";
+import Leaderboard from "./features/questions/LeaderBoard";
+import MenuAppBar from "./app/Navbar";
 
 function App() {
   return (

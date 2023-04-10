@@ -1,6 +1,3 @@
-// Internal state: anchorEl
-// External state: authedUser
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,50 +8,28 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useGetUsersQuery } from "../apiSlice.js";
+import { useGetUsersQuery } from "../features/questions/questionSlice.js";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "./authedUserSlice.js";
+import { login } from "../features/users/authedUserSlice.js";
+import { processGetApis } from "./util.js";
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const authedUser = useSelector((state) => state.authedUser.id);
   const dispatch = useDispatch();
 
-  const {
-    data: users,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetUsersQuery();
-  let content;
+  const { data: users, isLoading } = processGetApis(useGetUsersQuery());
   if (isLoading) {
-    content = "posts";
     return <div>Loading...</div>;
   }
-  // } else if (isSuccess) {
-  //   content = console.log("success. posts is", users);
-  // } else if (isError) {
-  //   content = <div>{error.toString()}</div>;
-  // }
-  console.log("authedUser", authedUser);
-  console.log("users navbar", users);
   const fullUsers = { ...users };
-  // fullUsers[undefined] = {
-  //   id: "anonymous",
-  //   name: "anonymous",
-  //   avatarURL: "http://localhost:3001/anonymous.jpg",
-  // };
 
   const handleMenu = (event) => {
-    console.log("handleMenu");
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = (event) => {
     const newUser = event.target.dataset["key"];
-    console.log("handleClose", event);
-    console.log("newuser", newUser);
     setAnchorEl(null);
     if (newUser) {
       dispatch(login(event.target.dataset["key"]));

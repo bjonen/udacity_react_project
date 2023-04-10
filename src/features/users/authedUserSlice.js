@@ -9,6 +9,7 @@ export const authedUserSlice = createSlice({
     login(state, action) {
       state.id = action.payload;
     },
+    // In case we want to add more sophisticated auth later
     logout(state, action) {
       state.id = null;
     },
@@ -16,5 +17,3 @@ export const authedUserSlice = createSlice({
 });
 
 export const { login, logout } = authedUserSlice.actions;
-
-// authedUserSlice.reducer;
