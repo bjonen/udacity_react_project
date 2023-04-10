@@ -14,6 +14,11 @@ const NewPoll = () => {
   const [text2, setText2] = useState("");
   const [saveQuestion, { isLoading }] = useSaveQuestionMutation();
   const authedUser = useSelector((state) => state.authedUser.id);
+  if (authedUser === "anonymous") {
+    return (
+      <div style={{ padding: "10px" }}>Please log in to create a new poll</div>
+    );
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

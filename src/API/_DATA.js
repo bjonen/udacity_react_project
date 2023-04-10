@@ -47,6 +47,11 @@ let users = {
     },
     questions: [],
   },
+  anonymous: {
+    id: "anonymous",
+    name: "anonymous",
+    avatarURL: "http://localhost:3001/anonymous.jpg",
+  },
 };
 
 let questions = {

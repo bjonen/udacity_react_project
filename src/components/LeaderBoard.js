@@ -26,13 +26,15 @@ const generateData = (users) => {
   }
   Object.keys(users).forEach((id) => {
     const user = users[id];
-    data.push({
-      id: user.id,
-      name: user.name,
-      avatar: user.avatarURL,
-      answered: Object.keys(user.answers).length,
-      created: user.questions.length,
-    });
+    if (user.name !== "anonymous") {
+      data.push({
+        id: user.id,
+        name: user.name,
+        avatar: user.avatarURL,
+        answered: Object.keys(user.answers).length,
+        created: user.questions.length,
+      });
+    }
   });
   return data;
 };

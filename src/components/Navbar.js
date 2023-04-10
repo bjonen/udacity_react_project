@@ -16,7 +16,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "./authedUserSlice.js";
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const authedUser = useSelector((state) => state.authedUser.id);
   const dispatch = useDispatch();
@@ -38,6 +37,14 @@ export default function MenuAppBar() {
   // } else if (isError) {
   //   content = <div>{error.toString()}</div>;
   // }
+  console.log("authedUser", authedUser);
+  console.log("users navbar", users);
+  const fullUsers = { ...users };
+  // fullUsers[undefined] = {
+  //   id: "anonymous",
+  //   name: "anonymous",
+  //   avatarURL: "http://localhost:3001/anonymous.jpg",
+  // };
 
   const handleMenu = (event) => {
     console.log("handleMenu");
@@ -79,7 +86,7 @@ export default function MenuAppBar() {
           ))}
           {/* Dummy element to push auth to ride end */}
           <Typography sx={{ flexGrow: 1 }}></Typography>
-          {auth && (
+          {
             <div>
               <IconButton
                 size="large"
@@ -89,9 +96,12 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                {authedUser && (
-                  <Avatar alt="Remy Sharp" src={users[authedUser].avatarURL} />
-                )}
+                {
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={fullUsers[authedUser].avatarURL}
+                  />
+                }
               </IconButton>
 
               <Menu
@@ -109,7 +119,7 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                {Object.keys(users).map((name) => (
+                {Object.keys(fullUsers).map((name) => (
                   <MenuItem
                     key={name}
                     mykey={name}
@@ -119,14 +129,14 @@ export default function MenuAppBar() {
                     <Avatar
                       alt="Remy Sharp"
                       mykey="blub"
-                      src={users[name].avatarURL}
+                      src={fullUsers[name].avatarURL}
                     />
-                    {name}
+                    {fullUsers[name].name}
                   </MenuItem>
                 ))}
               </Menu>
             </div>
-          )}
+          }
         </Toolbar>
       </AppBar>
     </Box>

@@ -7,13 +7,15 @@ import { useGetQuestionsQuery, useGetUsersQuery } from "../apiSlice";
 import { useSelector } from "react-redux";
 
 const getCardData = (questions, users, authedUser) => {
-  if (!questions || !users) {
+  if (!questions || !users || !authedUser || authedUser === "anonymous") {
     return {
       cardData: [],
       cardDataCompleted: [],
       cardDataNew: [],
     };
   }
+  console.log("getCardData: authedUser", authedUser);
+  console.log("getCardData: authedUser", users[authedUser]);
   let cardData = [];
   let cardDataNew = [];
   let cardDataCompleted = [];
@@ -51,6 +53,14 @@ function OverviewPage() {
   const authedUser = useSelector((state) => state.authedUser.id);
   const users = processGetApis(useGetUsersQuery());
   const questions = processGetApis(useGetQuestionsQuery());
+  if (!authedUser || authedUser === "anonymous") {
+    return (
+      <div style={{ padding: "10px" }}>
+        Please log in using dropdown on the top right
+      </div>
+    );
+  }
+  console.log("authedUser", authedUser);
   const fullCardData = getCardData(questions, users, authedUser);
   return (
     <div>
