@@ -64,8 +64,15 @@ const getCardData = (questions, users, authedUser) => {
 
 function OverviewPage() {
   const authedUser = useSelector((state) => state.authedUser.id);
-  const { data: users } = processGetApis(useGetUsersQuery());
-  const { data: questions } = processGetApis(useGetQuestionsQuery());
+  const { data: users, isLoading: isLoadingUser } = processGetApis(
+    useGetUsersQuery()
+  );
+  const { data: questions, isLoading: isLoadingQuestion } = processGetApis(
+    useGetQuestionsQuery()
+  );
+  if (isLoadingUser || isLoadingQuestion) {
+    return <div></div>;
+  }
   if (!authedUser || authedUser === "anonymous") {
     return (
       <div style={{ padding: "10px" }}>

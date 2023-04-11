@@ -4,13 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetQuestionsQuery, useGetUsersQuery } from "./questionSlice";
 import { useSaveQuestionAnswerMutation } from "./questionSlice.js";
-
-const processGetApis = ({ data, isLoading, isSuccess, isError, error }) => {
-  return {
-    data,
-    isLoading,
-  };
-};
+import { processGetApis } from "../../app/util.js";
 
 const PollPage = () => {
   const { questionId } = useParams();

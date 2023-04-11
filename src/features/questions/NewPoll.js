@@ -18,7 +18,9 @@ const NewPoll = () => {
   const navigate = useNavigate();
   if (authedUser === "anonymous") {
     return (
-      <div style={{ padding: "10px" }}>Please log in to create a new poll</div>
+      <div style={{ padding: "10px" }}>
+        Please log in using dropdown on the top right
+      </div>
     );
   }
 

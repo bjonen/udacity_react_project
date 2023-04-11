@@ -12,6 +12,7 @@ import { useGetUsersQuery } from "../features/questions/questionSlice.js";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../features/users/authedUserSlice.js";
 import { processGetApis } from "./util.js";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,7 +21,11 @@ export default function MenuAppBar() {
 
   const { data: users, isLoading } = processGetApis(useGetUsersQuery());
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ display: "flex" }}>
+        <CircularProgress />
+      </Box>
+    );
   }
   const fullUsers = { ...users };
 
