@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridCard will render correctly 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -228,7 +228,7 @@ Object {
 `;
 
 exports[`NavBar will render correctly 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
@@ -337,7 +337,7 @@ Object {
 `;
 
 exports[`NewPoll will render correctly 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>

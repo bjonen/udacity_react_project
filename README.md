@@ -33,3 +33,6 @@ There are two test files
 
 - api.test.js -> Tests interaction with fake API
 - App.test.js -> Tests app components and creates screenshots
+
+Finally added css to jest (especially for jest-preview)
+npx jest-preview config-cra

@@ -17,6 +17,7 @@
     "bootstrap": "^5.2.3",
     "concurrently": "^8.0.1",
     "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "jest-preview": "^0.3.1",
     "material-react-table": "^1.9.3",
     "nodemon": "^2.0.22",
@@ -34,7 +35,7 @@
     "start": "concurrently --names 'SERVER,CLIENT' --prefix-colors 'yellow,blue' --kill-others 'node src/server.js' 'react-scripts start'",
     "build": "react-scripts build",
     "jest-preview": "jest-preview",
-    "test": "react-scripts test",
+    "test": "node scripts/test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
